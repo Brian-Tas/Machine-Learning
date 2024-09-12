@@ -1,22 +1,17 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin-right: auto;
+#road {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    height: 1000px;
+    width: 200px;
+    top: 50%;
+    left: 50%;
+    background-color: gray;
 }
-
-#color {
-    width: 500px;
-    height: 500px;
-    background-color: rgb(6, 139, 255);
-}
-
-#white {
-    color: white;
-}
-
-.text {
-    text-align: center;
-}
-
-.feedback {
-    margin: 10px 10px 10px 10px;
+#car {
+    position: absolute;
+    bottom: 10px;
+    right: 90px;
+    width: 20px;
+    height: 40px;
+    background-color: blue;
 }
