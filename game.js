@@ -2,9 +2,9 @@ let car = {
     x: 95,
     y: 75,
     r: 0,
-    w: 50,
-    h: 100,
-    v: 40,
+    w: 25,
+    h: 50,
+    v: 20,
     vx: 0,
     vy: 0,
     rv: 0,
@@ -43,7 +43,7 @@ const drawLoop = () => {
 }
 
 const deltaMoveCar = (r, v) => {
-    car.r += car.rv;
+    car.r += car.rv/1.5;
     car.rv *= 0.99;
     
     const radians = r * (Math.PI / 180);
