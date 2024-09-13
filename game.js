@@ -4,7 +4,7 @@ let car = {
     r: 0,
     w: 50,
     h: 100,
-    v: 20,
+    v: 40,
     vx: 0,
     vy: 0,
     rv: 0,
@@ -65,9 +65,8 @@ const detection = () => {
 }
 
 setInterval(()=>{
-    deltaMoveCar(car.r, car.v);
     if(keys.d)car.rv+=0.1;
     if(keys.a)car.rv-=0.1;
+    deltaMoveCar(car.r + car.rv, car.v);
     drawLoop();
-    detection(); 
-}, 10);
+}, 10);d

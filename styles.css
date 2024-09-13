@@ -17,14 +17,7 @@ body {
   #car {
       width: 25px;
       height: 50px;
-      border: solid 1px black;
       left: 95px;
       top: 370px;
       transform: rotate(0deg);
-  }
-  
-  #road {
-      width: 225px;
-      height: 450px;
-      background-color: gray;
   }
