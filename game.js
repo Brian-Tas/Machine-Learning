@@ -60,6 +60,14 @@ const deltaMoveCar = (r, v) => {
     car.y += car.vy / 10;
 }
 
+const rotatePoint = (x, y, r) => {
+const cosR = Math.cos(r * (Math.PI / 180));
+const sinR = Math.sin(r * (Math.PI / 180));
+
+    return [x * cosR - y * sinR,
+            y * cosR + x * sinR]
+}
+
 const detection = () => {
     
 }
@@ -69,4 +77,4 @@ setInterval(()=>{
     if(keys.a)car.rv-=0.1;
     deltaMoveCar(car.r + car.rv, car.v);
     drawLoop();
-}, 10);d
+}, 10);
