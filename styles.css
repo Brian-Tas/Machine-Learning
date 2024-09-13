@@ -40,3 +40,10 @@ body {
     left: 125px;
     border-radius: 100px;
   }
+
+  .car-line {
+    width: 30px;
+    height: 30px;
+    background-color: yellow;
+    position: absolute;
+  }
