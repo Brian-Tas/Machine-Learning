@@ -47,3 +47,7 @@ body {
     background-color: yellow;
     position: absolute;
   }
+
+  #line2 {
+    top: 100px;
+  }

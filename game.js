@@ -11,14 +11,6 @@ let car = {
     doc: document.getElementById('car')
 }
 
-let lines = {
-    doc1: document.getElementById('line1'),
-    doc2: document.getElementById('line2'),
-    l: 50,
-    coordinates1: null,
-    coordinates2: null
-}
-
 const keys = {
     a: false,
     d: false
@@ -48,9 +40,6 @@ const drawLoop = () => {
     car.doc.style.top = `${450 - car.y}px`;
     car.doc.style.width = `${car.w}px`;
     car.doc.style.height = `${car.h}px`;
-
-    lines.doc1.style.left = `${lines.coordinates1[0]}`;
-    lines.doc1.style.top = `${450 - lines.coordinates2[1]}`;
 }
 
 const deltaMoveCar = (r, v) => {
@@ -71,26 +60,9 @@ const deltaMoveCar = (r, v) => {
     car.y += car.vy / 10;
 }
 
-const rotatePoint = (x, y, r) => {
-const cosR = Math.cos(r * (Math.PI / 180));
-const sinR = Math.sin(r * (Math.PI / 180));
-
-return [x * cosR - y * sinR, y * cosR + x * sinR]
-}
-
-const detection = () => {
-    const carFrontLeft = rotatePoint(car.x, car.y, car.r);
-    const carFrontRight = rotatePoint(car.x + car.w, car.y, car.r);
-
-    lines.coordinates1 = carFrontLeft;
-    lines.coordinates2 = carFrontRight;
-}
-
 setInterval(()=>{
     if(keys.d)car.rv+=0.1;
     if(keys.a)car.rv-=0.1;
     deltaMoveCar(car.r + car.rv, car.v);
-    //detection();
-    document.getElementById('test-text').innerHTML = rotatePoint(100, 100, 90)[1];
     drawLoop();
 }, 10);
