@@ -1,4 +1,5 @@
 let i = 0;
+let goal = [400, 200];
 
 class Car {
     constructor(x=100, y=100, r=180, w=25, h=50, v=10) {
@@ -22,12 +23,17 @@ class Car {
 
         this.doc = doc; // Correct assignment
         i++; // Increment i for the next car
+
+        this.net = new brain.NeuralNetwork();
+        this.fitness = 0;
     }
 
     drawCar() {
         this.doc.style.top = `${450 - this.y}px`;
         this.doc.style.left = `${this.x}px`;
         this.doc.style.transform = `rotate(${this.r}deg)`;
+        this.doc.style.width = `${this.w}px`;
+        this.doc.style.height = `${this.h}px`;
     }
 
     moveCar() {
@@ -47,13 +53,19 @@ class Car {
         this.x += this.vx / 10;
         this.y += this.vy / 10;    
     }
+
+    getFitness() {
+        
+    }
 }
 
-let car1 = new Car();
+let car1 = new Car(300, 100);
 
 setInterval(()=>{
     car1.moveCar();
     car1.drawCar();
-    car1.rv = 100;
-    car1.v = 100;
+    car1.rv = 1;
+    car1.v = 10;
 }, 10);
+
+export default Car;
