@@ -1,5 +1,5 @@
 let i = 0;
-let goal = [400, 200];
+let goal = {x: 300, y: 200};
 
 class Car {
     constructor(x=100, y=100, r=180, w=25, h=50, v=10) {
@@ -9,9 +9,9 @@ class Car {
         this.w = w;
         this.h = h;
         this.v = v;
-        this.rv = 10; // Initialize rv
-        this.vx = 0; // Initialize vx
-        this.vy = 0; // Initialize vy
+        this.rv = 10;
+        this.vx = 0;
+        this.vy = 0;
 
         let doc = document.createElement('img');
         doc.classList.add('absolute');
@@ -25,6 +25,7 @@ class Car {
         i++; // Increment i for the next car
 
         this.net = new brain.NeuralNetwork();
+        this.gDistance = []; //distance from goal
         this.fitness = 0;
     }
 
@@ -54,8 +55,21 @@ class Car {
         this.y += this.vy / 10;    
     }
 
+    getDistance() {
+        this.gDistance.push(Math.sqrt((this.x - goal.x)^2+(this.y - goal.y)^2));
+    }
+
     getFitness() {
-        
+        let distanceLength = this.gDistance.length;
+        if(distanceLength > 1) {
+            let sum = 0;
+            for(let h = 0; h < distanceLength; h++) {
+                sum += this.gDistance[h];
+            }
+            this.fitness = sum/distanceLength;
+        } else {
+            console.warn('Car has not travled enough distance');
+        }
     }
 }
 
