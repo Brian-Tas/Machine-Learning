@@ -22,11 +22,15 @@ class Car {
         document.body.appendChild(doc); // Append the image to the document body
 
         this.doc = doc; // Correct assignment
-        i++; // Increment i for the next car
-
+        
         this.net = new brain.NeuralNetwork();
         this.gDistance = []; //distance from goal
         this.fitness = 0;
+        
+        this.id = i;
+        
+        this.drawCar();
+        i++; // Increment i for the next car
     }
 
     drawCar() {
@@ -74,12 +78,12 @@ class Car {
 }
 
 let car1 = new Car(300, 100);
+let car2 = new Car(400, 100);
 
 setInterval(()=>{
+    document.getElementById("text").innerHTML = car1.doc;
     car1.moveCar();
     car1.drawCar();
-    car1.rv = 1;
-    car1.v = 10;
 }, 10);
 
 export default Car;
