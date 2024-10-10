@@ -1,17 +1,19 @@
 let i = 0;
-let goal = {x: 300, y: 200};
+let goal = [300, 200];
 
 class Car {
-    constructor(x=100, y=100, r=180, w=25, h=50, v=10) {
+    constructor(x=0, y=0, r=180, w=25, h=50, v=10) {
         this.x = x;
         this.y = y;
         this.r = r;
         this.w = w;
         this.h = h;
         this.v = v;
-        this.rv = 10;
+        this.rv = 0;
         this.vx = 0;
         this.vy = 0;
+
+        this.pos = [this.x, this.y, this.r, this.rv];
 
         let doc = document.createElement('img');
         doc.classList.add('absolute');
@@ -31,6 +33,12 @@ class Car {
         
         this.drawCar();
         i++; // Increment i for the next car
+
+        setInterval(()=>{
+            this.moveCar();
+            this.drawCar();
+            this.pos = [this.x, this.y, this.r, this.rv];
+        },10)
     }
 
     drawCar() {
@@ -60,9 +68,11 @@ class Car {
     }
 
     getDistance() {
-        this.gDistance.push(Math.sqrt((this.x - goal.x)^2+(this.y - goal.y)^2));
+        let distance = (Math.sqrt((this.x - goal[0])**2+(this.y - goal[1])**2));
+        this.gDistance.push(distance);
+        return distance;
     }
-
+///1/2 chance to go on strike they said nuh uh and did 1/1 chance
     getFitness() {
         let distanceLength = this.gDistance.length;
         if(distanceLength > 1) {
@@ -78,12 +88,51 @@ class Car {
 }
 
 let car1 = new Car(300, 100);
-let car2 = new Car(400, 100);
+
+
+document.getElementById('goal').style.top = `${450 - goal[1].y}px`;
+document.getElementById('goal').style.left = `${goal[0].x}px`;
+
+let data = []
+let keys = {
+    a: 0,
+    d: 0
+};
+
+document.addEventListener('keydown', event=>{
+    if(event.key === 'd') {
+        keys.d = 1;
+    }
+    if(event.key === 'a') {
+        keys.a = 1;
+    }
+});
+
+document.addEventListener('keyup', event=>{
+    if(event.key === 'd') {
+        keys.d = 0;
+    }
+    if(event.key === 'a') {
+        keys.a = 0;
+    }
+});
+
 
 setInterval(()=>{
-    document.getElementById("text").innerHTML = car1.doc;
-    car1.moveCar();
-    car1.drawCar();
-}, 10);
+    car1.rv += (keys.d - keys.a);
+    data.push(
+        {
+            input: [car1.x, car1.y, car1.r],
+            output: [(keys.d - keys.a)/2 + 0.5]
+        }
+    )
+},100);
 
-export default Car;
+
+setTimeout(()=>{
+    car1.net.train(data);
+    console.log(car1.net.toJSON());
+    setInterval(()=>{
+        car1.rv += car1.net.run([car1.x, car1.y, car1.r])[0] * 2 - 1
+    },100)
+},5000)
